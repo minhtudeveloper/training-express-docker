@@ -1,22 +1,29 @@
 import bcrypt from "bcrypt";
 // import crypto from "crypto";
 import mongoose from "mongoose";
+import Joi from "joi";
+import { join } from "path";
 
 type RoleUser = "ADMIN" | "USER";
+export type StatusUser = "ACTIVE" | "PENDING" | "INACTIVE";
 
 export type UserDocument = mongoose.Document & {
   email: string;
   password: string;
   full_name: string;
   role: RoleUser;
+  token: string;
+  status: StatusUser;
+  comparePassword: comparePasswordFunction;
 };
 
 const userSchema = new mongoose.Schema<UserDocument>(
   {
     email: { type: String, unique: true },
-    password: String,
+    password: { type: String, minLength: 8 },
     full_name: String,
     role: String,
+    token: String,
   },
   { timestamps: true },
 );
@@ -66,5 +73,31 @@ const hashPasswordUpdate = (next: any, user: any) => {
     });
   });
 };
+
+// Validate
+// export function validateChangePass(data: any) {
+//   const schema = {
+//     password: Joi.string().min(8),
+//   };
+//   return Joi.valid(data, schema);
+// }
+
+export const validateChangePass : any = Joi.object({
+  password: Joi.string().min(8),
+});
+
+type comparePasswordFunction = (
+  password: string,
+  candidatePassword: string,
+) => boolean;
+
+const comparePassword: comparePasswordFunction = function (
+  password,
+  candidatePassword,
+) {
+  return bcrypt.compareSync(password, candidatePassword);
+};
+
+userSchema.methods.comparePassword = comparePassword;
 
 export const User = mongoose.model<UserDocument>("users", userSchema);

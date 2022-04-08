@@ -31,8 +31,6 @@ class App {
   }
 
   private routerSetup() {
-    console.log('ahihi');
-    
     this.app.use("/api", indexRouter);
   }
 

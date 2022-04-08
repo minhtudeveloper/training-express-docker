@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { validationResult } from "express-validator";
-import { requestSuccess, requestError } from "../../util/response";
+import { requestSuccess, requestError } from "@/util/response";
 import UserServices from "./service";
 
 const getUsers = (req: Request, res: Response): void => {
@@ -18,7 +18,21 @@ const createUser = (req: Request, res: Response): any => {
   }
 };
 
+const changePassword = (req: Request, res: Response): any => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    requestError(res)(errors.array());
+  } else {
+    const token: string = req.headers?.authorization?.split("Bearer ")[1] || "";
+
+    UserServices.changePassword(token, req.body)
+      .then(requestSuccess(res))
+      .catch(requestError(res));
+  }
+};
+
 export default {
   getUsers,
   createUser,
+  changePassword,
 };

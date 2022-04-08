@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "e3be30b2-9c0d-41e0-9649-ad4dd42b8c1b",
+		"name": "Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"a@gmail.com\",\r\n    \"password\": \"abcd1234\",\r\n    \"full_name\": \"abcd\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWFhIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5NDE4NzE3LCJleHAiOjE2NTAwMjM1MTd9.Hx7G7djJXk22wabMLd6-O3zEZwBaeftgtE5j-jLY_ik",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"abcd12345\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/change-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmYWZjNWU5Y2UwZWVlZjg5NjY4OGMiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTM5MzM1NywiZXhwIjoxNjQ5NDc5NzU3fQ.oq-LQr1etT_Bw_clsgj73_Tmzn2rUydoJf2MX9ebFgQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"a@gmail.com\",\r\n    \"password\": \"abcd12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQxMTgxMCwiZXhwIjoxNjUwMDE2NjEwfQ.3qc81CB45QTpb5d8aZ_aM2DBs0F5qocw7VWv3Y8P-XE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"abcd1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWFhIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5NDE1NjAxLCJleHAiOjE2NTAwMjA0MDF9.1kuBvVVAqtCBWIwXcFasP0WTtpCa2maxx_c4mgtJuMw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"a@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
