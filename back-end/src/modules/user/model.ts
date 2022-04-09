@@ -3,9 +3,7 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import Joi from "joi";
 import { join } from "path";
-
-type RoleUser = "ADMIN" | "USER";
-export type StatusUser = "ACTIVE" | "PENDING" | "INACTIVE";
+import { RoleUser, StatusUser } from './dto'
 
 export type UserDocument = mongoose.Document & {
   email: string;
@@ -14,6 +12,7 @@ export type UserDocument = mongoose.Document & {
   role: RoleUser;
   token: string;
   status: StatusUser;
+  google_id: string;
   comparePassword: comparePasswordFunction;
 };
 
@@ -22,8 +21,10 @@ const userSchema = new mongoose.Schema<UserDocument>(
     email: { type: String, unique: true },
     password: { type: String, minLength: 8 },
     full_name: String,
-    role: String,
+    role: { type: String, enum: ['ADMIN', 'USER'] },
+    status: { type: String, enum: ["ACTIVE", "PENDING", "INACTIVE", "DELETED"] },
     token: String,
+    google_id: String,
   },
   { timestamps: true },
 );
@@ -74,15 +75,7 @@ const hashPasswordUpdate = (next: any, user: any) => {
   });
 };
 
-// Validate
-// export function validateChangePass(data: any) {
-//   const schema = {
-//     password: Joi.string().min(8),
-//   };
-//   return Joi.valid(data, schema);
-// }
-
-export const validateChangePass : any = Joi.object({
+export const validateChangePass: any = Joi.object({
   password: Joi.string().min(8),
 });
 

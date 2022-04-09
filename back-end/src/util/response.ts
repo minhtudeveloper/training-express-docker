@@ -28,18 +28,18 @@
 
 const requestSuccess =
   (res: any, code = 200, message = "OK") =>
-  (data: any = null) => {
-    const response = {
-      code,
-      message,
-      data,
+    (data: any = null) => {
+      const response = {
+        code,
+        message,
+        data,
+      };
+      res.status(code).json(response);
+      return {
+        ...response,
+        isSuccess: true,
+      };
     };
-    res.status(code).json(response);
-    return {
-      ...response,
-      isSuccess: true,
-    };
-  };
 
 /**
  * Usage: requestError(res, 400, "failed")({ a: 4 })
@@ -50,18 +50,33 @@ const requestSuccess =
  */
 const requestError =
   (res: any, code = 400, message = "Error") =>
-  (errors: any = null) => {
+    (errors: any = null) => {
+      const response = {
+        code: code,
+        message,
+        errors: errors instanceof Error ? errors.message : errors,
+      };
+
+      res.status(code).json(response);
+      return {
+        ...response,
+        isSuccess: false,
+      };
+    };
+
+const tokenError =
+  (res: any, errors: string = 'Token is wwrong', code = 403, message = "Error") => {
     const response = {
       code: code,
       message,
-      errors: errors instanceof Error ? errors.message : errors,
+      errors
     };
-
     res.status(code).json(response);
     return {
       ...response,
       isSuccess: false,
     };
-  };
+  }
 
-export { requestSuccess, requestError };
+
+export { requestSuccess, requestError, tokenError };

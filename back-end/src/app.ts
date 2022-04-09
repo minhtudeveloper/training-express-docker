@@ -6,9 +6,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import "dotenv";
 import indexRouter from "./routes/index";
-import { ENV as env } from "./config";
-import mongoose from "mongoose";
-
+import { mongoConfig } from "@/config";
+import '@/config/passport.config'
 class App {
   public app: express.Application;
 
@@ -35,23 +34,7 @@ class App {
   }
 
   private connectMongo() {
-    new Promise<any>((resolve, reject) => {
-      // mongoose.set("useCreateIndex", true);
-      mongoose.connect(env.MONGODB_URI, {
-        autoIndex: true,
-      });
-      const db = mongoose.connection;
-      db.on("error", () => reject("Please install and start your mongodb"));
-      db.once("open", resolve);
-    })
-      .then(() => {
-        console.log("connect mongo success");
-      })
-      .catch((err) => {
-        console.log(
-          `MongoDB connection error. Please make sure MongoDB is running. ${err}`,
-        );
-      });
+    mongoConfig()
   }
 
   private errorHandler() {

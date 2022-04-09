@@ -1,4 +1,4 @@
-import { User, UserDocument, validateChangePass } from "../user/model";
+import { User, validateChangePass } from "../user/model";
 import jwt from "@/util/jwt";
 import { sendMailForgotPassword } from "@/util/mailer";
 import { checkValidate } from "@/util/validate";
@@ -28,11 +28,9 @@ const login = (body: any) => {
   });
 };
 
-const resetPassword = (token: string, body: any) => {
+const resetPassword = (user: any, body: any) => {
   return new Promise(async (rs, rj) => {
     try {
-      if (token === "") rj("Token not found");
-      const user = await jwt.verifyToken(token);
       const errorValidate = checkValidate(validateChangePass.validate(body));
       if (errorValidate) rj(errorValidate);
       if (user) {
@@ -79,8 +77,42 @@ const forgotPassword = (body: any) => {
   });
 };
 
+const loginGoogle = async (user: any) => {
+  return new Promise(async (rs, rj) => {
+    try {
+      const dataAdduser: any = {
+        email: user._json.email,
+        google_id: user._json.sub,
+        full_name: user._json.name,
+        role: 'USER'
+      }
+      let dataUser: any
+      dataUser = await User.findOneAndUpdate({ email: dataAdduser.email }, dataAdduser)
+      if (!dataUser) {
+        dataUser = await User.create(dataAdduser)
+      }
+      const tokenToClient = await jwt.generateToken({
+        _id: dataUser._id,
+        email: dataUser.email,
+        full_name: dataUser.full_name,
+        role: dataUser.role,
+      });
+
+      await User.findByIdAndUpdate(dataUser._id.toString(), {
+        token: tokenToClient,
+      });
+      rs(tokenToClient)
+    } catch (error) {
+      rj(error)
+    }
+
+  })
+
+}
+
 export default {
   login,
   resetPassword,
   forgotPassword,
+  loginGoogle
 };

@@ -1,12 +1,18 @@
-import jwt from "@/util/jwt";
 import { checkValidate } from "@/util/validate";
-import { User, UserDocument, StatusUser, validateChangePass } from "./model";
+import { User, validateChangePass } from "./model";
+import { UserCreteDto, UserDeleteDto, UserEditDto } from './dto'
 
-const createUser = (body: any) => {
+const createUser = (body: UserCreteDto) => {
   return new Promise(async (rs, rj) => {
     try {
-      const status: StatusUser = "ACTIVE";
-      const user = await User.create({ ...body, status });
+      const data: UserCreteDto = {
+        email: body.email,
+        password: body.password,
+        full_name: body.full_name,
+        status: 'ACTIVE',
+        role: body.role
+      }
+      const user = await User.create(data);
       if (user) {
         rs("Successfully");
       }
@@ -29,11 +35,9 @@ const getUsers = () => {
   });
 };
 
-const changePassword = (token: string, body: any) => {
+const changePassword = (user: any, body: any) => {
   return new Promise(async (rs, rj) => {
     try {
-      if (token === "") rj("Token not found");
-      const user = await jwt.verifyToken(token);
       const errorValidate = checkValidate(validateChangePass.validate(body));
       if (errorValidate) rj(errorValidate);
       if (user) {
@@ -59,8 +63,50 @@ const changePassword = (token: string, body: any) => {
   });
 };
 
+const editUser = (body: any) => {
+  // edit by [id , email]
+  return new Promise(async (rs, rj) => {
+    try {
+      const data: UserEditDto = {
+        _id: body._id,
+        email: body._id ? undefined : body.email,
+        full_name: body.full_name,
+        status: body.status,
+        role: body.role
+      }
+      User.updateOne({ $or: [{ _id: data._id }, { email: data.email }] }, data).then((result) => {
+        if (result) rs("Success changed!");
+        else rj("change fails!");
+      })
+    } catch (error) {
+      rj(error);
+    }
+  });
+};
+
+const deleteUser = (body: any) => {
+  // delete by [id , email]
+  return new Promise(async (rs, rj) => {
+    try {
+      const data: UserDeleteDto = {
+        _id: body._id,
+        email: body.email,
+        status: "DELETED",
+      }
+      User.updateOne({ $or: [{ _id: data._id }, { email: data.email }] }, data).then((result) => {
+        if (result) rs("Success deleted!");
+        else rj("change fails!");
+      })
+    } catch (error) {
+      rj(error);
+    }
+  });
+};
+
 export default {
   createUser,
   getUsers,
   changePassword,
+  editUser,
+  deleteUser
 };

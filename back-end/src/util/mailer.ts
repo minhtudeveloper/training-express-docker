@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 const optionsMailer = (receiver: string, html: string) => ({
   from: '"Hasagiiiiiiiiii" <minhtudevelopertest@gmail.com>',
-  to: "a123@mailinator.com",
+  to: receiver,
   subject: "Do you want to get the password or get Hassagiiiii",
   html,
 });
@@ -27,22 +27,19 @@ const contentMailer = (token: string) => `
 
 const sendMailForgotPassword = (token: string, receiver: string) =>
   new Promise((rs, rj) => {
-    console.log({ token, receiver });
-
     try {
       transporter.sendMail(
         optionsMailer(receiver, contentMailer(token)),
         (err, info) => {
-          console.log({ info, err });
           if (err) rj(err);
           else rs(info.response);
         },
       );
     } catch (error) {
-      console.log({ error });
-
       rj(error);
     }
   });
+
+
 
 export { sendMailForgotPassword };

@@ -23,9 +23,29 @@ const changePassword = (req: Request, res: Response): any => {
   if (!errors.isEmpty()) {
     requestError(res)(errors.array());
   } else {
-    const token: string = req.headers?.authorization?.split("Bearer ")[1] || "";
+    UserServices.changePassword(req.user, req.body)
+      .then(requestSuccess(res))
+      .catch(requestError(res));
+  }
+};
 
-    UserServices.changePassword(token, req.body)
+const editUser = (req: Request, res: Response): any => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    requestError(res)(errors.array());
+  } else {
+    UserServices.editUser(req.body)
+      .then(requestSuccess(res))
+      .catch(requestError(res));
+  }
+};
+
+const deleteUser = (req: Request, res: Response): any => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    requestError(res)(errors.array());
+  } else {
+    UserServices.deleteUser(req.body)
       .then(requestSuccess(res))
       .catch(requestError(res));
   }
@@ -35,4 +55,6 @@ export default {
   getUsers,
   createUser,
   changePassword,
+  editUser,
+  deleteUser
 };
