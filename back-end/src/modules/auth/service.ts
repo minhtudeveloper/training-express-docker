@@ -69,7 +69,7 @@ const forgotPassword = (body: any) => {
         role: user.role,
       });
       sendMailForgotPassword(tokenToClient, email)
-        .then((msg: any) => rs(msg))
+        .then((msg: any) => rs('Success send mail forgot password!'))
         .catch((err: any) => rj(err));
     } catch (error) {
       rj(error);

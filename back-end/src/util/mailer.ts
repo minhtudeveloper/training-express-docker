@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-import { ENV, ENV as env } from "@/config";
+import { ENV as env } from "@/config";
+import { MailCreateDto } from "@/modules/mail/dto";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -11,25 +12,29 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const optionsMailer = (receiver: string, html: string) => ({
-  from: '"Hasagiiiiiiiiii" <minhtudevelopertest@gmail.com>',
-  to: receiver,
-  subject: "Do you want to get the password or get Hassagiiiii",
-  html,
-});
+export const mailFrom = 'minhtudevelopertest@gmail.com'
 
-const contentMailer = (token: string) => `
-            <div style="padding: 10px; background-color: white;">
-                <h4 style="color: #0085ff">Forgot password</h4>
-                <a href="${env.URL_FE}/changepassword/${token}">${env.URL_FE}/changepassword/${token}</a>
-            </div>
-    `;
 
-const sendMailForgotPassword = (token: string, receiver: string) =>
-  new Promise((rs, rj) => {
+
+const sendMailForgotPassword = (token: string, receiver: any) => {
+  const options = () => ({
+    from: `"Hasagiiiiiiiiii" <${mailFrom}>`,
+    to: 'a@mailinator.com',
+    subject: "Do you want to get the password or get Hassagiiiii",
+    html: content()
+  });
+
+  const content = () => `
+              <div style="padding: 10px; background-color: white;">
+                  <h4 style="color: #0085ff">Forgot password</h4>
+                  <a href="${env.URL_FE}/changepassword/${token}">${env.URL_FE}/changepassword/${token}</a>
+              </div>
+      `;
+
+  return new Promise((rs, rj) => {
     try {
       transporter.sendMail(
-        optionsMailer(receiver, contentMailer(token)),
+        options(),
         (err, info) => {
           if (err) rj(err);
           else rs(info.response);
@@ -40,6 +45,39 @@ const sendMailForgotPassword = (token: string, receiver: string) =>
     }
   });
 
+}
 
 
-export { sendMailForgotPassword };
+
+const sendMailMessage = (dataMail: MailCreateDto) => {
+  const options = () => ({
+    from: `"Notification from Hasagiiiiiiiiii" <${mailFrom}>`,
+    to: dataMail.to,
+    subject: dataMail.subject,
+    html: content(dataMail.content)
+  });
+
+  const content = (text: string) => `
+      <div style="padding: 16px; background-color: white; border:10px solid rgb(96, 113, 155)ed">
+        <p>${text}</p>
+      </div>
+    `;
+
+  return new Promise((rs, rj) => {
+    try {
+      transporter.sendMail(
+        options(),
+        (err, info) => {
+          if (err) rj(err);
+          else rs(info.response);
+        },
+      );
+    } catch (error) {
+      rj(error);
+    }
+  });
+
+}
+
+
+export { sendMailForgotPassword, sendMailMessage };

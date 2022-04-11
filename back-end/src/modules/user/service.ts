@@ -1,11 +1,11 @@
 import { checkValidate } from "@/util/validate";
 import { User, validateChangePass } from "./model";
-import { UserCreteDto, UserDeleteDto, UserEditDto } from './dto'
+import { UserCreateDto, UserDeleteDto, UserEditDto } from './dto'
 
-const createUser = (body: UserCreteDto) => {
+const createUser = (body: UserCreateDto) => {
   return new Promise(async (rs, rj) => {
     try {
-      const data: UserCreteDto = {
+      const data: UserCreateDto = {
         email: body.email,
         password: body.password,
         full_name: body.full_name,

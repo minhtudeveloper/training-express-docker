@@ -1,10 +1,10 @@
 import { Response, Request } from "express";
 import { validationResult } from "express-validator";
 import { requestSuccess, requestError } from "@/util/response";
-import UserServices from "./service";
+import userServices from "./service";
 
 const getUsers = (req: Request, res: Response): void => {
-  UserServices.getUsers().then(requestSuccess(res)).catch(requestError(res));
+  userServices.getUsers().then(requestSuccess(res)).catch(requestError(res));
 };
 
 const createUser = (req: Request, res: Response): any => {
@@ -12,7 +12,7 @@ const createUser = (req: Request, res: Response): any => {
   if (!errors.isEmpty()) {
     requestError(res)(errors.array());
   } else {
-    UserServices.createUser(req.body)
+    userServices.createUser(req.body)
       .then(requestSuccess(res))
       .catch(requestError(res));
   }
@@ -23,7 +23,7 @@ const changePassword = (req: Request, res: Response): any => {
   if (!errors.isEmpty()) {
     requestError(res)(errors.array());
   } else {
-    UserServices.changePassword(req.user, req.body)
+    userServices.changePassword(req.user, req.body)
       .then(requestSuccess(res))
       .catch(requestError(res));
   }
@@ -34,7 +34,7 @@ const editUser = (req: Request, res: Response): any => {
   if (!errors.isEmpty()) {
     requestError(res)(errors.array());
   } else {
-    UserServices.editUser(req.body)
+    userServices.editUser(req.body)
       .then(requestSuccess(res))
       .catch(requestError(res));
   }
@@ -45,7 +45,7 @@ const deleteUser = (req: Request, res: Response): any => {
   if (!errors.isEmpty()) {
     requestError(res)(errors.array());
   } else {
-    UserServices.deleteUser(req.body)
+    userServices.deleteUser(req.body)
       .then(requestSuccess(res))
       .catch(requestError(res));
   }

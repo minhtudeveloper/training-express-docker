@@ -2,7 +2,7 @@
 export type RoleUser = "ADMIN" | "USER";
 export type StatusUser = "ACTIVE" | "PENDING" | "INACTIVE" | "DELETED";
 
-export interface UserCreteDto {
+export interface UserCreateDto {
     email: string,
     full_name: string,
     role: RoleUser,

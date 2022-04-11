@@ -2,7 +2,6 @@ import bcrypt from "bcrypt";
 // import crypto from "crypto";
 import mongoose from "mongoose";
 import Joi from "joi";
-import { join } from "path";
 import { RoleUser, StatusUser } from './dto'
 
 export type UserDocument = mongoose.Document & {
