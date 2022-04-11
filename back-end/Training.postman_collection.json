@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e3be30b2-9c0d-41e0-9649-ad4dd42b8c1b",
+		"_postman_id": "dd6cbcaa-2bb4-460f-9cf4-7733f14e18bd",
 		"name": "Training",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -40,6 +40,16 @@
 				{
 					"name": "get users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDA4MmYzMDc5ZTc1ZWY3YzcxZmUiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5MjM3OCwiZXhwIjoxNjUwMDk3MTc4fQ.0TUwQvAAOyMTHmUpnjTa7n6xtU5Ha9LL9RMobF9_sBc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -65,7 +75,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWFhIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5NDE4NzE3LCJleHAiOjE2NTAwMjM1MTd9.Hx7G7djJXk22wabMLd6-O3zEZwBaeftgtE5j-jLY_ik",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDA4MmYzMDc5ZTc1ZWY3YzcxZmUiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5MjM3OCwiZXhwIjoxNjUwMDk3MTc4fQ.0TUwQvAAOyMTHmUpnjTa7n6xtU5Ha9LL9RMobF9_sBc",
 									"type": "string"
 								}
 							]
@@ -96,6 +106,86 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "edit user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDA4MmYzMDc5ZTc1ZWY3YzcxZmUiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5MjM3OCwiZXhwIjoxNjUwMDk3MTc4fQ.0TUwQvAAOyMTHmUpnjTa7n6xtU5Ha9LL9RMobF9_sBc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"a@gmail.com\",\r\n    \"full_name\":\"abcdef\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDA4MmYzMDc5ZTc1ZWY3YzcxZmUiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5MjM3OCwiZXhwIjoxNjUwMDk3MTc4fQ.0TUwQvAAOyMTHmUpnjTa7n6xtU5Ha9LL9RMobF9_sBc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"b@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -119,7 +209,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"a@gmail.com\",\r\n    \"password\": \"abcd12345\"\r\n}",
+							"raw": "{\r\n    \"email\": \"a@gmail.com\",\r\n    \"password\": \"abcd1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,7 +239,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQxMTgxMCwiZXhwIjoxNjUwMDE2NjEwfQ.3qc81CB45QTpb5d8aZ_aM2DBs0F5qocw7VWv3Y8P-XE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDg0ODI0YjQxMTk1OGQ4MjIyODAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5NTI0MiwiZXhwIjoxNjUwMTAwMDQyfQ.WMvTeue8c6tvkoP08s5vFPSKnpNKdcV80vRB-qNzcW8",
 									"type": "string"
 								}
 							]
@@ -188,7 +278,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRmZjJjNzM2MmU0MDVlYzg3NTNjNjAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWFhIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5NDE1NjAxLCJleHAiOjE2NTAwMjA0MDF9.1kuBvVVAqtCBWIwXcFasP0WTtpCa2maxx_c4mgtJuMw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDg0ODI0YjQxMTk1OGQ4MjIyODAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY0OTQ5NTI0MiwiZXhwIjoxNjUwMTAwMDQyfQ.WMvTeue8c6tvkoP08s5vFPSKnpNKdcV80vRB-qNzcW8",
 									"type": "string"
 								}
 							]
@@ -214,6 +304,92 @@
 							"path": [
 								"api",
 								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mailer",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDg0ODI0YjQxMTk1OGQ4MjIyODAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZGVmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5Njk0MjY3LCJleHAiOjE2NTAyOTkwNjd9.BRddlR3yO6B4X_J4k4bwX8WYnqyhxwlD_m06A9QD70A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"to\":\"a@mailinator.com\",\r\n    \"subject\":\"test mail\",\r\n    \"content\":\"content!!!!!!!!!111111111111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/mail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"mail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxNDg0ODI0YjQxMTk1OGQ4MjIyODAiLCJlbWFpbCI6ImFAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoiYWJjZGVmIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjQ5Njk0MjY3LCJleHAiOjE2NTAyOTkwNjd9.BRddlR3yO6B4X_J4k4bwX8WYnqyhxwlD_m06A9QD70A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\":\"a123@mailinator\",\r\n    \"to\":\"a@mailinator.com\",\r\n    \"subject\":\"test mail\",\r\n    \"content\":\"content!!!!!!!!!111111111111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/mail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"mail"
 							]
 						}
 					},
