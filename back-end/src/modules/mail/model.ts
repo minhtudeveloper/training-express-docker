@@ -1,5 +1,5 @@
+import { BaseRepository } from "@/models/baseRepository";
 import bcrypt from "bcrypt";
-// import crypto from "crypto";
 import mongoose from "mongoose";
 
 export type MailDocument = mongoose.Document & {
@@ -7,7 +7,6 @@ export type MailDocument = mongoose.Document & {
   to: string;
   subject: string;
   content: string;
-
 };
 
 const mailSchema = new mongoose.Schema<MailDocument>(
@@ -16,10 +15,10 @@ const mailSchema = new mongoose.Schema<MailDocument>(
     to: String,
     subject: String,
     content: String,
-
   },
   { timestamps: true },
 );
 
+class MailRepository extends BaseRepository<MailDocument> {}
 
-export const Mail = mongoose.model<MailDocument>("mails", mailSchema);
+export const Mail = new MailRepository("mails", mailSchema);

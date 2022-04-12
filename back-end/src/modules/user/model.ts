@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
-// import crypto from "crypto";
 import mongoose from "mongoose";
 import Joi from "joi";
-import { RoleUser, StatusUser } from './dto'
+import { RoleUser, StatusUser } from "./dto";
+import { BaseRepository } from "@/models/baseRepository";
 
-export type UserDocument = mongoose.Document & {
+type UserDocument = mongoose.Document & {
   email: string;
   password: string;
   full_name: string;
@@ -12,7 +12,6 @@ export type UserDocument = mongoose.Document & {
   token: string;
   status: StatusUser;
   google_id: string;
-  comparePassword: comparePasswordFunction;
 };
 
 const userSchema = new mongoose.Schema<UserDocument>(
@@ -20,8 +19,11 @@ const userSchema = new mongoose.Schema<UserDocument>(
     email: { type: String, unique: true },
     password: { type: String, minLength: 8 },
     full_name: String,
-    role: { type: String, enum: ['ADMIN', 'USER'] },
-    status: { type: String, enum: ["ACTIVE", "PENDING", "INACTIVE", "DELETED"] },
+    role: { type: String, enum: ["ADMIN", "USER"] },
+    status: {
+      type: String,
+      enum: ["ACTIVE", "PENDING", "INACTIVE", "DELETED"],
+    },
     token: String,
     google_id: String,
   },
@@ -83,13 +85,13 @@ type comparePasswordFunction = (
   candidatePassword: string,
 ) => boolean;
 
-const comparePassword: comparePasswordFunction = function (
-  password,
-  candidatePassword,
-) {
-  return bcrypt.compareSync(password, candidatePassword);
-};
+class UserRepository extends BaseRepository<UserDocument> {
+  comparePassword: comparePasswordFunction = function (
+    password,
+    candidatePassword,
+  ) {
+    return bcrypt.compareSync(password, candidatePassword);
+  };
+}
 
-userSchema.methods.comparePassword = comparePassword;
-
-export const User = mongoose.model<UserDocument>("users", userSchema);
+export const User = new UserRepository("users", userSchema);

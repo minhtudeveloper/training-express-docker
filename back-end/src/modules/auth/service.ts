@@ -8,7 +8,7 @@ const login = (body: any) => {
     try {
       const { email, password } = body;
       const user = await User.findOne({ email });
-      if (user && new User().comparePassword(password, user.password)) {
+      if (user && User.comparePassword(password, user.password)) {
         const tokenToClient = await jwt.generateToken({
           _id: user._id,
           email: user.email,

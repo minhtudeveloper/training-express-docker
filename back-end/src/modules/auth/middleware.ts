@@ -9,6 +9,8 @@ const useAuth = (req: Request, res: Response, next: any) => {
     try {
       const token: string = req.headers?.authorization?.split("Bearer ")[1] || "";
       const user = await jwt.verifyToken(token);
+      console.log({user});
+      
       if (!user) tokenError(res)
       req.user = user
       next()
